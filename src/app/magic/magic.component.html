@@ -1,20 +1,35 @@
 <div class="page-head">
   <div>
     <div class="eyebrow">✦ &nbsp; IL TUO REGISTRO PERSONALE</div>
-    <h1>Incantesimi</h1>
-    <p>La magia a tua disposizione, pronta quando serve.</p>
+    <h1>Magia e capacità</h1>
+    <p>Le risorse e le capacità del tuo personaggio, pronte durante la sessione.</p>
   </div>
-  <button class="primary" (click)="edit()">+ Aggiungi incantesimo</button>
+  @if (spellsVisible) { <button class="primary spell-add" [class.mobile-hidden]="visibleMobileSection!=='grimorio'" (click)="edit()">+ Aggiungi incantesimo</button> }
+</div>
+<div class="mobile-segments" aria-label="Sezioni magia e capacità">
+  <button type="button" [class.selected]="visibleMobileSection==='risorse'" [attr.aria-pressed]="visibleMobileSection==='risorse'" (click)="mobileSection='risorse'">Risorse</button>
+  @if(spellsVisible){<button type="button" [class.selected]="visibleMobileSection==='slot'" [attr.aria-pressed]="visibleMobileSection==='slot'" (click)="mobileSection='slot'">Slot</button><button type="button" [class.selected]="visibleMobileSection==='grimorio'" [attr.aria-pressed]="visibleMobileSection==='grimorio'" (click)="mobileSection='grimorio'">Grimorio</button>}
+  @if(isSorcerer && (!characterLevel || characterLevel>=3)){<button type="button" [class.selected]="visibleMobileSection==='metamagie'" [attr.aria-pressed]="visibleMobileSection==='metamagie'" (click)="mobileSection='metamagie'">Metamagie</button>}
 </div>
 <div class="grid">
-  <section class="card half">
+  @if (c.state.identity['classe']) {
+    <section class="card" [class.mobile-hidden]="visibleMobileSection!=='risorse'"><app-class-resources /></section>
+  } @else {
+    <section class="card" [class.mobile-hidden]="visibleMobileSection!=='risorse'"><div class="empty"><b>Seleziona la tua classe</b>Vai nella panoramica per mostrare le risorse del personaggio.</div></section>
+  }
+  @if (!hasSpellcasting) {
+    <section class="card" [class.mobile-hidden]="visibleMobileSection!=='risorse'"><div class="resource-row"><div><strong>Incantesimi facoltativi</strong><p class="sub">Per capacità razziali, talenti, oggetti o multiclasse puoi mostrare il libro e gli slot manuali.</p></div><button class="secondary" (click)="showOptionalSpells=!showOptionalSpells">{{showOptionalSpells ? 'Nascondi' : 'Mostra'}}</button></div></section>
+  }
+  @if (spellsVisible) {
+  <section class="card half" [class.mobile-hidden]="visibleMobileSection!=='slot'">
     <div class="card-title">
       <h2><span>✧</span>SLOT INCANTESIMO</h2>
       <small>LIVELLI 1–9</small>
     </div>
-    <p class="sub">Imposta manualmente gli slot previsti dal personaggio.</p>
+    <p class="sub">Imposta manualmente gli slot previsti dal personaggio. @if (classKey === 'warlock') { La Magia del Patto usa slot di pari livello che si recuperano con un riposo breve o lungo. }</p>
+    <div class="mobile-slot-tools"><button type="button" class="secondary" (click)="showAllSlots=!showAllSlots">{{showAllSlots?'Nascondi livelli vuoti':'Configura livelli'}}</button>@if(!configuredSlots && !showAllSlots){<p class="sub">Nessuno slot configurato. Apri i livelli per impostare il massimo.</p>}</div>
     @for (s of c.state.slots; track $index; let i = $index) {
-      <div class="resource-row">
+      <div class="resource-row" [class.mobile-hidden]="!showAllSlots && s.max===0">
         <b>Livello {{ i + 1 }}</b>
         <div class="slot">
           @for (o of orbs(s.max); track $index; let j = $index) {
@@ -44,7 +59,9 @@
       </div>
     }
   </section>
-  <section class="card half">
+  }
+  @if (isSorcerer && (!characterLevel || characterLevel >= 2)) {
+  <section class="card half magic-sorcery" [class.mobile-hidden]="visibleMobileSection!=='risorse'">
     <div class="card-title">
       <h2><span>✧</span>PUNTI STREGONERIA</h2>
       <small>FONTE DI MAGIA</small>
@@ -90,7 +107,9 @@
       </p>
     </div>
   </section>
-  <section class="card">
+  }
+  @if (spellsVisible) {
+  <section class="card" [class.mobile-hidden]="visibleMobileSection!=='grimorio'">
     <div class="card-title">
       <h2><span>✧</span>LIBRO DEGLI INCANTESIMI</h2>
     </div>
@@ -119,13 +138,20 @@
             {{ x.s.scuola }} · {{ x.s.lancio }} · {{ x.s.gittata }} ·
             {{ x.s.durata }} · {{ x.s.componenti }}
           </p>
-          @if (italianDescription(x.s)) {
+          <div class="desktop-description">          @if (italianDescription(x.s)) {
             <p>{{ italianDescription(x.s) }}</p>
             @if (x.s.descrizione && x.s.descrizione !== italianDescription(x.s)) {
               <details><summary>Testo salvato nella tua scheda</summary><p>{{ x.s.descrizione }}</p></details>
             }
           } @else { <p>{{ x.s.descrizione }}</p> }
-          @if (x.s.effetti) { <p>{{ x.s.effetti }}</p> }
+          @if (x.s.effetti) { <p>{{ x.s.effetti }}</p> }</div>
+          <details class="mobile-description"><summary>Descrizione ed effetti</summary>          @if (italianDescription(x.s)) {
+            <p>{{ italianDescription(x.s) }}</p>
+            @if (x.s.descrizione && x.s.descrizione !== italianDescription(x.s)) {
+              <details><summary>Testo salvato nella tua scheda</summary><p>{{ x.s.descrizione }}</p></details>
+            }
+          } @else { <p>{{ x.s.descrizione }}</p> }
+          @if (x.s.effetti) { <p>{{ x.s.effetti }}</p> }</details>
         </div>
         <div class="row">
           <button class="secondary" (click)="edit(x.i)">Modifica</button
@@ -139,7 +165,9 @@
       </div>
     }
   </section>
-  <section class="card">
+  }
+  @if (isSorcerer && (!characterLevel || characterLevel >= 3)) {
+  <section class="card" [class.mobile-hidden]="visibleMobileSection!=='metamagie'">
     <div class="card-title">
       <h2><span>✧</span>METAMAGIE</h2>
     </div>
@@ -163,6 +191,7 @@
       ></textarea>
     </div>
   </section>
+  }
 </div>
 @if (draft) {
   <div class="modal-backdrop">

@@ -5,15 +5,20 @@
     <p>I tuoi attributi, tiri salvezza e competenze.</p>
   </div>
 </div>
+<nav class="mobile-segments" aria-label="Sezioni caratteristiche">
+  <button type="button" [attr.aria-pressed]="mobileSection === 'abilita'" (click)="mobileSection = 'abilita'">Abilità</button>
+  <button type="button" [attr.aria-pressed]="mobileSection === 'attributi'" (click)="mobileSection = 'attributi'">Attributi</button>
+  <button type="button" [attr.aria-pressed]="mobileSection === 'salvezza'" (click)="mobileSection = 'salvezza'">Salvezza</button>
+</nav>
 <div class="grid">
-  <section class="card">
+  <section class="card" [class.mobile-hidden]="mobileSection !== 'attributi'">
     <div class="card-title">
       <h2><span>✧</span>CARATTERISTICHE</h2>
       <small>PUNTEGGI E MODIFICATORI</small>
     </div>
     <app-ability-cards />
   </section>
-  <section class="card half">
+  <section class="card half" [class.mobile-hidden]="mobileSection !== 'salvezza'">
     <div class="card-title">
       <h2><span>✧</span>TIRI SALVEZZA</h2>
     </div>
@@ -37,7 +42,7 @@
       </div>
     }
   </section>
-  <section class="card half">
+  <section class="card half" [class.mobile-hidden]="mobileSection !== 'abilita'">
     <div class="card-title">
       <h2><span>✧</span>ABILITÀ</h2>
     </div>

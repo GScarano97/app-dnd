@@ -31,6 +31,7 @@
       <div class="crumb">
         REGISTRO ARCANO <span> / </span> <strong>{{ pageName }}</strong>
       </div>
+      <details class="mobile-tools"><summary aria-label="Apri opzioni della scheda">Opzioni <span aria-hidden="true">⌄</span></summary><div class="mobile-tools-menu"><button type="button" (click)="c.export()">Esporta JSON</button><label>Importa JSON<input type="file" accept="application/json,.json" hidden (change)="importFile($event)"></label><button type="button" (click)="print()">Stampa</button><button type="button" (click)="reset()">Ripristina scheda</button></div></details>
       <div class="top-actions">
         <span class="saved"><i></i> Salvato in questo browser</span
         ><button class="icon-btn" (click)="c.export()">Esporta JSON</button

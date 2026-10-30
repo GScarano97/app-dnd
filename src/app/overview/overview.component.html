@@ -6,15 +6,22 @@
   </div>
   <div class="ornament">✧ &nbsp; ─── &nbsp; ✧</div>
 </div>
-<div class="grid">
-  <section class="card">
+<div class="mobile-character-summary"><div><span class="tiny">IL PERSONAGGIO</span><strong>{{c.state.identity['nome'] || 'Il tuo personaggio'}}</strong><small>{{c.state.identity['classe'] || 'Scegli una classe'}} @if(c.state.identity['livello']){ · Livello {{c.state.identity['livello']}} }</small></div><button type="button" (click)="mobileSection='identita'">Modifica</button></div>
+<div class="mobile-segments" aria-label="Sezioni della panoramica">
+  <button type="button" [class.selected]="mobileSection==='stato'" [attr.aria-pressed]="mobileSection==='stato'" (click)="mobileSection='stato'">Stato</button>
+  <button type="button" [class.selected]="mobileSection==='identita'" [attr.aria-pressed]="mobileSection==='identita'" (click)="mobileSection='identita'">Identità</button>
+  <button type="button" [class.selected]="mobileSection==='attributi'" [attr.aria-pressed]="mobileSection==='attributi'" (click)="mobileSection='attributi'">Attributi</button>
+  <button type="button" [class.selected]="mobileSection==='morte'" [attr.aria-pressed]="mobileSection==='morte'" (click)="mobileSection='morte'">Salvezza</button>
+</div>
+<div class="grid overview-grid">
+  <section class="card" [class.mobile-hidden]="mobileSection!=='identita'">
     <div class="card-title">
       <h2><span>✧</span>IDENTITÀ DEL PERSONAGGIO</h2>
       <small>LA TUA STORIA</small>
     </div>
     <app-character-identity />
   </section>
-  <section class="card">
+  <section class="card overview-stats" [class.mobile-hidden]="mobileSection!=='stato'">
     <div class="card-title">
       <h2><span>✧</span>DIFESE E MOVIMENTO</h2>
       <small>PRONTO ALL’AZIONE</small>
@@ -34,7 +41,7 @@
       }
     </div>
   </section>
-  <section class="card half">
+  <section class="card half overview-vitals" [class.mobile-hidden]="mobileSection!=='stato'">
     <div class="card-title">
       <h2><span>✧</span>PUNTI VITA</h2>
       <small>STATO VITALE</small>
@@ -75,17 +82,17 @@
       [max]="c.state.hp.massimi"
       [(value)]="c.state.hp.attuali"
       (valueChange)="c.save()"
-    /><app-counter
-      label="Punti vita massimi"
-      [value]="c.state.hp.massimi"
-      (valueChange)="maxHp($event)"
-    /><app-counter
-      label="Punti vita temporanei"
-      [(value)]="c.state.hp.temporanei"
-      (valueChange)="c.save()"
     />
+    <div class="desktop-hp-settings">
+      <app-counter label="Punti vita massimi" [value]="c.state.hp.massimi" (valueChange)="maxHp($event)" />
+      <app-counter label="Punti vita temporanei" [(value)]="c.state.hp.temporanei" (valueChange)="c.save()" />
+    </div>
+    <details class="mobile-hp-settings"><summary>Modifica massimo e PF temporanei <span>{{c.state.hp.massimi}} · {{c.state.hp.temporanei}}</span></summary>
+      <app-counter label="Punti vita massimi" [value]="c.state.hp.massimi" (valueChange)="maxHp($event)" />
+      <app-counter label="Punti vita temporanei" [(value)]="c.state.hp.temporanei" (valueChange)="c.save()" />
+    </details>
   </section>
-  <section class="card half">
+  <section class="card half" [class.mobile-hidden]="mobileSection!=='morte'">
     <div class="card-title">
       <h2><span>✧</span>TIRI SALVEZZA CONTRO MORTE</h2>
       <small>IL FILO DEL DESTINO</small>
@@ -117,7 +124,7 @@
       />
     </div>
   </section>
-  <section class="card">
+  <section class="card" [class.mobile-hidden]="mobileSection!=='attributi'">
     <div class="card-title">
       <h2><span>✧</span>CARATTERISTICHE</h2>
       <small>I TUOI ATTRIBUTI</small>

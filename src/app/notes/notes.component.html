@@ -7,9 +7,16 @@
     </p>
   </div>
 </div>
+<label class="mobile-note-picker">
+  <span>Sezione</span>
+  <select [(ngModel)]="mobileSection">
+    @for (f of labels; track f[0]) { <option [value]="f[0]">{{ f[1] }}</option> }
+    @if (c.state.catalog.length) { <option value="catalogo">Opzioni dal catalogo SRD</option> }
+  </select>
+</label>
 <div class="grid">
   @if (c.state.catalog.length) {
-    <section class="card">
+    <section class="card" [class.mobile-hidden]="mobileSection !== 'catalogo'">
       <div class="card-title">
         <h2><span>✧</span>OPZIONI DAL CATALOGO SRD</h2>
       </div>
@@ -27,7 +34,7 @@
     </section>
   }
   @for (f of labels; track f[0]) {
-    <section class="card half">
+    <section class="card half" [class.mobile-hidden]="mobileSection !== f[0]">
       <div class="card-title">
         <h2><span>✧</span>{{ f[1].toUpperCase() }}</h2>
       </div>

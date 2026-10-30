@@ -6,39 +6,44 @@
   </div>
   <button class="primary" (click)="edit()">+ Aggiungi oggetto</button>
 </div>
+<div class="mobile-segments" aria-label="Sezioni inventario">
+  <button type="button" [class.selected]="mobileSection==='borsa'" [attr.aria-pressed]="mobileSection==='borsa'" (click)="mobileSection='borsa'">Borsa</button>
+  <button type="button" [class.selected]="mobileSection==='equip'" [attr.aria-pressed]="mobileSection==='equip'" (click)="mobileSection='equip'">Equipaggiamento</button>
+  <button type="button" [class.selected]="mobileSection==='monete'" [attr.aria-pressed]="mobileSection==='monete'" (click)="mobileSection='monete'">Monete</button>
+</div>
 <div class="grid">
-  <section class="card"><app-equipment-doll /></section>
-  <section class="card two-third">
+  <section class="card" [class.mobile-hidden]="mobileSection!=='equip'"><app-equipment-doll /></section>
+  <section class="card two-third" [class.mobile-hidden]="mobileSection!=='borsa'">
     <div class="card-title">
       <h2><span>✧</span>BORSA DELL’AVVENTURIERO</h2>
       <small>PESO TOTALE {{ weight }} KG</small>
     </div>
-    @for (x of c.state.items; track $index; let i = $index) {
+    @if(c.state.items.length){<input class="search inventory-search" aria-label="Cerca nell’inventario" placeholder="Cerca un oggetto o una categoria…" [(ngModel)]="search" />}
+    @for (entry of filteredItems; track entry.i) {
       <div class="list-item">
         <div>
-          <strong>{{ x.nome }}</strong> <span class="tag">{{ x.tipo }}</span>
-          @if (x.equipaggiato) {
+          <strong>{{ entry.item.nome }}</strong> <span class="tag">{{ entry.item.tipo }}</span>
+          @if (entry.item.equipaggiato) {
             <span class="tag">EQUIPAGGIATO</span>
           }
           <p>
-            Quantità {{ x.quantita }} · {{ x.peso }} kg ciascuno ·
-            {{ x.valore }} MO
+            Quantità {{ entry.item.quantita }} · {{ entry.item.peso }} kg ciascuno ·
+            {{ entry.item.valore }} MO
           </p>
-          <p>{{ x.descrizione }}</p>
+          @if(entry.item.descrizione){<details class="compact-details"><summary>Descrizione</summary><p>{{entry.item.descrizione}}</p></details>}
         </div>
         <div class="row">
-          <button class="secondary" (click)="edit(i)">Modifica</button
-          ><button class="secondary" (click)="remove(i)">Elimina</button>
+          <button class="secondary" (click)="edit(entry.i)">Modifica</button
+          ><button class="secondary" (click)="remove(entry.i)">Elimina</button>
         </div>
       </div>
     } @empty {
       <div class="empty">
-        <b>La tua borsa è vuota</b>Aggiungi armi, pozioni e tesori raccolti
-        durante le tue avventure.
+        @if(search){<b>Nessun oggetto trovato</b>Prova un altro nome o categoria.} @else {<b>La tua borsa è vuota</b>Aggiungi armi, pozioni e tesori raccolti durante le tue avventure.}
       </div>
     }
   </section>
-  <section class="card third">
+  <section class="card third" [class.mobile-hidden]="mobileSection!=='monete'">
     <div class="card-title">
       <h2><span>✧</span>BORSA DELLE MONETE</h2>
       <small>TESORO</small>
