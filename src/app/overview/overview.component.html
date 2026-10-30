@@ -12,19 +12,7 @@
       <h2><span>✧</span>IDENTITÀ DEL PERSONAGGIO</h2>
       <small>LA TUA STORIA</small>
     </div>
-    <div class="identity">
-      @for (f of identity; track f[1]) {
-        <div class="field">
-          <label>{{ f[0] }}</label
-          ><input
-            [type]="f[1] === 'livello' || f[1] === 'xp' ? 'number' : 'text'"
-            [(ngModel)]="c.state.identity[f[1]]"
-            (ngModelChange)="c.save()"
-            placeholder="—"
-          />
-        </div>
-      }
-    </div>
+    <app-character-identity />
   </section>
   <section class="card">
     <div class="card-title">

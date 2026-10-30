@@ -38,3 +38,5 @@ Questo lavoro include materiale del System Reference Document 5.1 (“SRD 5.1”
 Il workflow `.github/workflows/deploy.yml` compila il frontend e lo pubblica su GitHub Pages dopo ogni push sul ramo `main`. La prima volta apri **Settings → Pages** nel repository e seleziona **GitHub Actions** come origine. Il deploy è visibile nella scheda **Actions** del repository.
 
 Il nuovo URL GitHub Pages utilizza un'origine diversa dal sito precedente: i dati salvati localmente nel browser non vengono trasferiti automaticamente. Esporta la scheda in JSON dal vecchio indirizzo e importala nel nuovo.
+
+Le scelte di identità usano le regole 2014: i nomi delle classi e sottoclassi provengono dall’indice [dnd_5e_classes](https://github.com/ahhh/dnd_5e_classes). Le liste di razze e background includono le opzioni base; contenuti non elencati possono essere aggiunti manualmente. Il livello di sottoclasse indicato si riferisce alla classe, non calcola il multiclasse.
