@@ -45,6 +45,7 @@
         ><button class="icon-btn" (click)="reset()">Ripristina</button>
       </div>
     </header>
+    <app-pwa-status />
     <div id="content">
       <div [class.page-hidden]="page !== 'overview'"><app-overview /></div>
       <div [class.page-hidden]="page !== 'abilities'"><app-abilities /></div>

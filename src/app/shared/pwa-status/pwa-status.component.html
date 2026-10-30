@@ -1,0 +1,17 @@
+@if (offline() || updateAvailable() || installAvailable() || iosHelp()) {
+  <div class="pwa-notices" aria-live="polite">
+    @if (offline()) {
+      <div class="pwa-notice"><span>◌</span><p><strong>Sei offline.</strong> La scheda salvata su questo dispositivo rimane disponibile. Il catalogo online richiede una connessione.</p></div>
+    }
+    @if (updateAvailable()) {
+      <div class="pwa-notice"><span>✦</span><p>È disponibile una nuova versione.</p><button type="button" (click)="refresh()">Aggiorna</button></div>
+    }
+    @if (installAvailable()) {
+      <div class="pwa-notice"><span>✧</span><p>Porta Registro Arcano sempre con te.</p><button type="button" (click)="install()">Installa app</button></div>
+    }
+    @if (iosHelp()) {
+      <div class="pwa-notice"><span>✧</span><p>Installa Registro Arcano sul tuo dispositivo.</p><button type="button" (click)="showIosHelp.set(!showIosHelp())">{{showIosHelp() ? 'Chiudi' : 'Come fare'}}</button></div>
+      @if (showIosHelp()) {<p class="ios-help">In Safari tocca Condividi, scegli «Aggiungi alla schermata Home» e poi «Aggiungi».</p>}
+    }
+  </div>
+}

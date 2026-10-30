@@ -19,12 +19,19 @@
             "outputPath": {
               "base": "dist",
               "browser": "client"
-            }
+            },
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ]
           },
           "configurations": {
             "production": {
               "optimization": true,
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,
