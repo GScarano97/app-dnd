@@ -1,3 +1,4 @@
+import {SPELL_DESCRIPTIONS_IT} from './spell-descriptions-it';
 import {Injectable} from '@angular/core';
 export interface SrdRef {index:string;name:string;url:string}
 export type SrdDetail=Record<string,any>&SrdRef;
@@ -5,5 +6,6 @@ export type SrdDetail=Record<string,any>&SrdRef;
  private base='https://www.dnd5eapi.co';
  async get(path:string):Promise<any>{if(!path.startsWith('/api/2014/'))throw new Error('Percorso non valido');const response=await fetch(this.base+path);if(!response.ok)throw new Error('Catalogo non disponibile');return response.json()}
  async list(type:string,level:string,cls:string):Promise<SrdRef[]>{const paths:Record<string,string>={spells:'spells',metamagic:'classes/sorcerer/features',classes:'classes',subclasses:'subclasses',backgrounds:'backgrounds',races:'races',subraces:'subraces',traits:'traits',features:'features',feats:'feats',equipment:'equipment',magicitems:'magic-items'};const base=type==='spells'&&cls?`classes/${cls}/spells`:paths[type];const data=await this.get('/api/2014/'+base+(type==='spells'&&level!==''?'?level='+level:''));let list:SrdRef[]=data.results||[];return type==='metamagic'?list.filter(x=>x.index.startsWith('metamagic-')&&!/^metamagic-\d+$/.test(x.index)):list}
+ spellDescription(index:string):string {return SPELL_DESCRIPTIONS_IT[index]||''}
  description(d:SrdDetail):string {let p:string[]=[];if(Array.isArray(d['desc']))p.push(...d['desc']);else if(d['desc'])p.push(d['desc']);if(d['higher_level']?.length)p.push('At higher levels: '+d['higher_level'].join(' '));for(const k of ['age','alignment','size_description','language_desc','starting_proficiencies_desc'])if(typeof d[k]==='string')p.push(d[k]);if(d['hit_die'])p.push('Hit die: d'+d['hit_die']);if(d['speed']!==undefined)p.push('Speed: '+d['speed']+' feet');if(d['ability_bonuses']?.length)p.push('Ability bonuses: '+d['ability_bonuses'].map((x:any)=>x.ability_score?.name+' +'+x.bonus).join(', '));if(d['equipment_category'])p.push('Category: '+d['equipment_category'].name);if(d['weight']!==undefined)p.push('Weight: '+d['weight']+' lb');if(d['cost'])p.push('Cost: '+d['cost'].quantity+' '+d['cost'].unit);return p.filter(Boolean).join('\n\n')}
 }

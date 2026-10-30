@@ -119,7 +119,13 @@
             {{ x.s.scuola }} · {{ x.s.lancio }} · {{ x.s.gittata }} ·
             {{ x.s.durata }} · {{ x.s.componenti }}
           </p>
-          <p>{{ x.s.descrizione }} {{ x.s.effetti }}</p>
+          @if (italianDescription(x.s)) {
+            <p>{{ italianDescription(x.s) }}</p>
+            @if (x.s.descrizione && x.s.descrizione !== italianDescription(x.s)) {
+              <details><summary>Testo salvato nella tua scheda</summary><p>{{ x.s.descrizione }}</p></details>
+            }
+          } @else { <p>{{ x.s.descrizione }}</p> }
+          @if (x.s.effetti) { <p>{{ x.s.effetti }}</p> }
         </div>
         <div class="row">
           <button class="secondary" (click)="edit(x.i)">Modifica</button
