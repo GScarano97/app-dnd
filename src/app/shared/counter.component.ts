@@ -1,0 +1,4 @@
+import {Component,Input,Output,EventEmitter} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+@Component({selector:'app-counter',standalone:true,imports:[FormsModule],template:`<div class="resource-row"><b>{{label}}</b><div class="controls"><button type="button" (click)="change(value-1)" [attr.aria-label]="'Riduci '+label">−</button><input type="number" min="0" step="1" [ngModel]="value" (ngModelChange)="change($event)" [attr.aria-label]="label"><button type="button" (click)="change(value+1)" [attr.aria-label]="'Aumenta '+label">+</button></div></div>`})
+export class CounterComponent {@Input() label='';@Input() value=0;@Input() max=Infinity;@Output() valueChange=new EventEmitter<number>();change(value:number){this.valueChange.emit(Math.max(0,Math.min(this.max,Math.floor(Number(value)||0))))}}
