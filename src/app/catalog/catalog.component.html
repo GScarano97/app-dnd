@@ -15,12 +15,11 @@
       <small>D&D 5E · 2014</small>
     </div>
     <p class="sub">
-      Contenuti SRD 5.1 forniti da D&D 5e SRD API. Nomi e descrizioni sono in
-      inglese. Alcuni contenuti dei manuali non sono inclusi.
+      Contenuti SRD 5.1 forniti da D&D 5e SRD API. I nomi degli incantesimi sono in italiano; le descrizioni e gli altri contenuti sono in inglese. Alcuni contenuti dei manuali non sono inclusi.
       <a href="https://www.dnd5eapi.co/" target="_blank" rel="noopener"
         >Fonte ↗</a
       >
-      · SRD 5.1 © Wizards of the Coast,
+      · Questo lavoro include materiale del System Reference Document 5.1 (“SRD 5.1”) di Wizards of the Coast LLC, disponibile sul <a href="https://dnd.wizards.com/resources/systems-reference-document" target="_blank" rel="noopener">sito ufficiale</a>. L’SRD 5.1 è concesso in licenza sotto
       <a
         href="https://creativecommons.org/licenses/by/4.0/"
         target="_blank"
@@ -39,7 +38,7 @@
         }</select
       ><input
         class="search"
-        placeholder="Cerca per nome in inglese…"
+        placeholder="Cerca per nome…"
         [(ngModel)]="query"
       />
       @if (type === "spells") {
@@ -86,7 +85,7 @@
             [class.selected]="detail?.index === x.index"
             (click)="open(x)"
           >
-            <span>{{ x.name }}</span
+            <span>{{ displayName(x) }}</span
             ><span>›</span>
           </button>
         } @empty {
@@ -98,7 +97,7 @@
       <div class="catalog-detail">
         @if (detail; as d) {
           <div class="eyebrow">{{ kinds[type] }} · SRD 2014</div>
-          <h3>{{ d.name }}</h3>
+          <h3>{{ displayName(d) }}</h3>
           @if (type === "spells") {
             <p class="sub">
               {{ d["level"] === 0 ? "Trucchetto" : "Livello " + d["level"] }} ·

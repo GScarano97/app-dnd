@@ -28,3 +28,7 @@ I file compilati si trovano in `dist/client/`.
 - `src/styles.css`: stile globale e stampa.
 
 Il catalogo richiede una connessione Internet. I contenuti SRD 5.1 sono di Wizards of the Coast, distribuiti secondo [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); sono forniti dalla [D&D 5e SRD API](https://www.dnd5eapi.co/). La scheda non verifica automaticamente tutti i requisiti di classe o le scelte legali del personaggio.
+
+I nomi degli incantesimi in italiano sono basati sulla traduzione italiana SRD e sul confronto con il [compendio italiano per Foundry VTT](https://github.com/LuckyFrico/dnd5e-it-translation-foundryVTT); le descrizioni sono fornite dall’API in inglese.
+
+Questo lavoro include materiale del System Reference Document 5.1 (“SRD 5.1”) di Wizards of the Coast LLC disponibile al sito https://dnd.wizards.com/resources/systems-reference-document. L’SRD 5.1 è concesso in licenza sotto l’Attribuzione 4.0 Internazionale di Creative Commons disponibile al sito https://creativecommons.org/licenses/by/4.0/legalcode.it.

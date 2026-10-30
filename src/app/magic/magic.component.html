@@ -97,7 +97,7 @@
     <div class="toolbar">
       <input
         class="search"
-        placeholder="Cerca un incantesimo…"
+        placeholder="Cerca nel libro e nel catalogo…"
         [(ngModel)]="search"
       /><select [(ngModel)]="filter">
         <option value="">Tutti i livelli</option>
@@ -107,10 +107,11 @@
         }
       </select>
     </div>
+    <app-spell-search [query]="search" [level]="filter" />
     @for (x of filtered; track x.i) {
       <div class="list-item">
         <div>
-          <strong>{{ x.s.nome }}</strong>
+          <strong>{{ displayName(x.s) }}</strong>
           <span class="tag">{{
             x.s.livello === "0" ? "TRUCCHETTO" : "LIVELLO " + x.s.livello
           }}</span>

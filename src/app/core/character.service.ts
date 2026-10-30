@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 export const ABILITIES = ['Forza','Destrezza','Costituzione','Intelligenza','Saggezza','Carisma'];
 export const SKILLS: [string,number][] = [['Acrobazia',1],['Addestrare Animali',4],['Arcano',3],['Atletica',0],['Furtività',1],['Indagare',3],['Inganno',5],['Intimidire',5],['Intuizione',4],['Intrattenere',5],['Medicina',4],['Natura',3],['Percezione',4],['Persuasione',5],['Rapidità di mano',1],['Religione',3],['Sopravvivenza',4],['Storia',3]];
 export interface Spell {nome:string;livello:string;scuola:string;lancio:string;gittata:string;durata:string;componenti:string;descrizione:string;effetti:string;srdIndex?:string}
-export interface Item {nome:string;quantita:number;tipo:string;peso:number;valore:number;descrizione:string;equipaggiato:boolean;srdIndex?:string}
+export interface Item {nome:string;quantita:number;tipo:string;peso:number;valore:number;descrizione:string;equipaggiato:boolean;slot?:string;srdIndex?:string}
 export interface CatalogEntry {type:string;index:string;name:string;kind:string;description:string}
 export interface Character {identity:Record<string,string|number>;stats:Record<string,string|number>;hp:{attuali:number;massimi:number;temporanei:number};death:Record<'successi'|'fallimenti',boolean[]>;abilities:{score:string|number;save:number|boolean}[];skills:number[];slots:{max:number;current:number}[];sorcery:{current:number;max:number};coins:Record<string,number>;spells:Spell[];items:Item[];notes:Record<string,string>;inspiration:boolean;catalog:CatalogEntry[]}
 const KEY='registro-arcano-v1';
