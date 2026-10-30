@@ -32,3 +32,9 @@ Il catalogo richiede una connessione Internet. I contenuti SRD 5.1 sono di Wizar
 I nomi degli incantesimi in italiano sono basati sulla traduzione italiana SRD e sul confronto con il [compendio italiano per Foundry VTT](https://github.com/LuckyFrico/dnd5e-it-translation-foundryVTT); le descrizioni degli incantesimi provengono dallo SRD 5.1 italiano. Il testo è stato estratto dal PDF e formattato per la visualizzazione; gli altri contenuti del catalogo restano in inglese.
 
 Questo lavoro include materiale del System Reference Document 5.1 (“SRD 5.1”) di Wizards of the Coast LLC disponibile al sito https://dnd.wizards.com/resources/systems-reference-document. L’SRD 5.1 è concesso in licenza sotto l’Attribuzione 4.0 Internazionale di Creative Commons disponibile al sito https://creativecommons.org/licenses/by/4.0/legalcode.it.
+
+## Pubblicazione automatica con GitHub Pages
+
+Il workflow `.github/workflows/deploy.yml` compila il frontend e lo pubblica su GitHub Pages dopo ogni push sul ramo `main`. La prima volta apri **Settings → Pages** nel repository e seleziona **GitHub Actions** come origine. Il deploy è visibile nella scheda **Actions** del repository.
+
+Il nuovo URL GitHub Pages utilizza un'origine diversa dal sito precedente: i dati salvati localmente nel browser non vengono trasferiti automaticamente. Esporta la scheda in JSON dal vecchio indirizzo e importala nel nuovo.
