@@ -1,1 +1,150 @@
-<div class="page-head"><div><div class="eyebrow">✦ &nbsp; IL TUO REGISTRO PERSONALE</div><h1>Catalogo SRD</h1><p>Esplora le opzioni del regolamento 5e 2014 e aggiungile al tuo personaggio.</p></div></div><div class="grid"><section class="card"><div class="card-title"><h2><span>✧</span>ESPLORA IL CATALOGO</h2><small>D&D 5E · 2014</small></div><p class="sub">Contenuti SRD 5.1 forniti da D&D 5e SRD API. Nomi e descrizioni sono in inglese. Alcuni contenuti dei manuali non sono inclusi. <a href="https://www.dnd5eapi.co/" target="_blank" rel="noopener">Fonte ↗</a> · SRD 5.1 © Wizards of the Coast, <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p><div class="catalog-filters"><select aria-label="Categoria" [(ngModel)]="type" (ngModelChange)="changeType()">@for(k of keys;track k){<option [value]="k">{{kinds[k]}}</option>}</select><input class="search" placeholder="Cerca per nome in inglese…" [(ngModel)]="query">@if(type==='spells'){<select aria-label="Livello incantesimo" [(ngModel)]="level" (ngModelChange)="load()"><option value="">Tutti i livelli</option>@for(l of levels;track l){<option [value]="l">{{l===0?'Trucchetti':'Livello '+l}}</option>}</select><select aria-label="Classe incantesimo" [(ngModel)]="cls" (ngModelChange)="load()"><option value="">Tutte le classi</option>@for(cl of classes;track cl){<option [value]="cl">{{cl}}</option>}</select>}</div><div class="sub">{{loading?'Caricamento del catalogo…':error||filtered.length+' risultati · Seleziona una voce per leggere i dettagli.'}}</div><div class="catalog-layout"><div class="catalog-list">@if(error){<button class="secondary" (click)="load()">Riprova</button>}@for(x of filtered;track x.index){<button class="catalog-result" [class.selected]="detail?.index===x.index" (click)="open(x)"><span>{{x.name}}</span><span>›</span></button>}@empty{<div class="empty">{{loading?'Caricamento…':'Nessun risultato.'}}</div>}</div><div class="catalog-detail">@if(detail;as d){<div class="eyebrow">{{kinds[type]}} · SRD 2014</div><h3>{{d.name}}</h3>@if(type==='spells'){<p class="sub">{{d['level']===0?'Trucchetto':'Livello '+d['level']}} · {{d['school']?.name}} · {{d['casting_time']}} · {{d['range']}} · {{d['duration']}} · {{d['components']?.join(', ')}} {{d['material']?'('+d['material']+')':''}}</p>}<p class="catalog-description">{{desc||'Nessuna descrizione testuale disponibile per questa voce nell’API.'}}</p><button class="primary" (click)="add()">+ Aggiungi alla scheda</button>}@else{<div class="empty"><b>Apri una voce</b>Qui vedrai la descrizione e potrai aggiungerla alla scheda.</div>}<p class="sub">{{message}}</p></div></div></section><section class="card"><div class="card-title"><h2><span>✧</span>OPZIONI SELEZIONATE</h2><small>SALVATE NELLA SCHEDA</small></div>@for(x of c.state.catalog;track $index;let i=$index){<div class="list-item"><div><strong>{{x.name}}</strong> <span class="tag">{{x.kind}}</span><p>{{x.description||'Nessuna descrizione disponibile.'}}</p></div><button class="secondary" (click)="remove(i)">Rimuovi</button></div>}@empty{<div class="empty"><b>Nessuna opzione selezionata</b>Le caratteristiche aggiunte compariranno qui.</div>}</section></div>
+<div class="page-head">
+  <div>
+    <div class="eyebrow">✦ &nbsp; IL TUO REGISTRO PERSONALE</div>
+    <h1>Catalogo SRD</h1>
+    <p>
+      Esplora le opzioni del regolamento 5e 2014 e aggiungile al tuo
+      personaggio.
+    </p>
+  </div>
+</div>
+<div class="grid">
+  <section class="card">
+    <div class="card-title">
+      <h2><span>✧</span>ESPLORA IL CATALOGO</h2>
+      <small>D&D 5E · 2014</small>
+    </div>
+    <p class="sub">
+      Contenuti SRD 5.1 forniti da D&D 5e SRD API. Nomi e descrizioni sono in
+      inglese. Alcuni contenuti dei manuali non sono inclusi.
+      <a href="https://www.dnd5eapi.co/" target="_blank" rel="noopener"
+        >Fonte ↗</a
+      >
+      · SRD 5.1 © Wizards of the Coast,
+      <a
+        href="https://creativecommons.org/licenses/by/4.0/"
+        target="_blank"
+        rel="noopener"
+        >CC BY 4.0</a
+      >.
+    </p>
+    <div class="catalog-filters">
+      <select
+        aria-label="Categoria"
+        [(ngModel)]="type"
+        (ngModelChange)="changeType()"
+      >
+        @for (k of keys; track k) {
+          <option [value]="k">{{ kinds[k] }}</option>
+        }</select
+      ><input
+        class="search"
+        placeholder="Cerca per nome in inglese…"
+        [(ngModel)]="query"
+      />
+      @if (type === "spells") {
+        <select
+          aria-label="Livello incantesimo"
+          [(ngModel)]="level"
+          (ngModelChange)="load()"
+        >
+          <option value="">Tutti i livelli</option>
+          @for (l of levels; track l) {
+            <option [value]="l">
+              {{ l === 0 ? "Trucchetti" : "Livello " + l }}
+            </option>
+          }</select
+        ><select
+          aria-label="Classe incantesimo"
+          [(ngModel)]="cls"
+          (ngModelChange)="load()"
+        >
+          <option value="">Tutte le classi</option>
+          @for (cl of classes; track cl) {
+            <option [value]="cl">{{ cl }}</option>
+          }
+        </select>
+      }
+    </div>
+    <div class="sub">
+      {{
+        loading
+          ? "Caricamento del catalogo…"
+          : error ||
+            filtered.length +
+              " risultati · Seleziona una voce per leggere i dettagli."
+      }}
+    </div>
+    <div class="catalog-layout">
+      <div class="catalog-list">
+        @if (error) {
+          <button class="secondary" (click)="load()">Riprova</button>
+        }
+        @for (x of filtered; track x.index) {
+          <button
+            class="catalog-result"
+            [class.selected]="detail?.index === x.index"
+            (click)="open(x)"
+          >
+            <span>{{ x.name }}</span
+            ><span>›</span>
+          </button>
+        } @empty {
+          <div class="empty">
+            {{ loading ? "Caricamento…" : "Nessun risultato." }}
+          </div>
+        }
+      </div>
+      <div class="catalog-detail">
+        @if (detail; as d) {
+          <div class="eyebrow">{{ kinds[type] }} · SRD 2014</div>
+          <h3>{{ d.name }}</h3>
+          @if (type === "spells") {
+            <p class="sub">
+              {{ d["level"] === 0 ? "Trucchetto" : "Livello " + d["level"] }} ·
+              {{ d["school"]?.name }} · {{ d["casting_time"] }} ·
+              {{ d["range"] }} · {{ d["duration"] }} ·
+              {{ d["components"]?.join(", ") }}
+              {{ d["material"] ? "(" + d["material"] + ")" : "" }}
+            </p>
+          }
+          <p class="catalog-description">
+            {{
+              desc ||
+                "Nessuna descrizione testuale disponibile per questa voce nell’API."
+            }}
+          </p>
+          <button class="primary" (click)="add()">
+            + Aggiungi alla scheda
+          </button>
+        } @else {
+          <div class="empty">
+            <b>Apri una voce</b>Qui vedrai la descrizione e potrai aggiungerla
+            alla scheda.
+          </div>
+        }
+        <p class="sub">{{ message }}</p>
+      </div>
+    </div>
+  </section>
+  <section class="card">
+    <div class="card-title">
+      <h2><span>✧</span>OPZIONI SELEZIONATE</h2>
+      <small>SALVATE NELLA SCHEDA</small>
+    </div>
+    @for (x of c.state.catalog; track $index; let i = $index) {
+      <div class="list-item">
+        <div>
+          <strong>{{ x.name }}</strong> <span class="tag">{{ x.kind }}</span>
+          <p>{{ x.description || "Nessuna descrizione disponibile." }}</p>
+        </div>
+        <button class="secondary" (click)="remove(i)">Rimuovi</button>
+      </div>
+    } @empty {
+      <div class="empty">
+        <b>Nessuna opzione selezionata</b>Le caratteristiche aggiunte
+        compariranno qui.
+      </div>
+    }
+  </section>
+</div>

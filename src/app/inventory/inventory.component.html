@@ -1,2 +1,135 @@
-<div class="page-head"><div><div class="eyebrow">✦ &nbsp; IL TUO REGISTRO PERSONALE</div><h1>Inventario</h1><p>Ogni oggetto ha una storia da raccontare.</p></div><button class="primary" (click)="edit()">+ Aggiungi oggetto</button></div><div class="grid"><section class="card two-third"><div class="card-title"><h2><span>✧</span>BORSA DELL’AVVENTURIERO</h2><small>PESO TOTALE {{weight}} KG</small></div>@for(x of c.state.items;track $index;let i=$index){<div class="list-item"><div><strong>{{x.nome}}</strong> <span class="tag">{{x.tipo}}</span> @if(x.equipaggiato){<span class="tag">EQUIPAGGIATO</span>}<p>Quantità {{x.quantita}} · {{x.peso}} kg ciascuno · {{x.valore}} MO</p><p>{{x.descrizione}}</p></div><div class="row"><button class="secondary" (click)="edit(i)">Modifica</button><button class="secondary" (click)="remove(i)">Elimina</button></div></div>}@empty{<div class="empty"><b>La tua borsa è vuota</b>Aggiungi armi, pozioni e tesori raccolti durante le tue avventure.</div>}</section><section class="card third"><div class="card-title"><h2><span>✧</span>BORSA DELLE MONETE</h2><small>TESORO</small></div>@for(k of coins;track k){<app-counter [label]="k" [(value)]="c.state.coins[k]" (valueChange)="c.save()"/>}<div class="resource-row"><b>Valore complessivo</b><strong style="color:var(--gold)">{{total}} MO</strong></div></section></div>
-@if(draft){<div class="modal-backdrop"><form class="modal" (ngSubmit)="save()"><div class="dialog-head"><div><div class="eyebrow">REGISTRO ARCANO</div><h2>Oggetto</h2></div><button class="close" type="button" (click)="draft=null">×</button></div><div class="form-grid"><div class="field"><label>Nome</label><input name="nome" required [(ngModel)]="draft.nome"></div><div class="field"><label>Quantità</label><input name="quantita" type="number" min="0" [(ngModel)]="draft.quantita"></div><div class="field"><label>Tipologia</label><select name="tipo" [(ngModel)]="draft.tipo">@for(t of types;track t){<option [value]="t">{{t}}</option>}</select></div><div class="field"><label>Peso unitario (kg)</label><input name="peso" type="number" min="0" step="0.01" [(ngModel)]="draft.peso"></div><div class="field"><label>Valore unitario (MO)</label><input name="valore" type="number" min="0" step="0.01" [(ngModel)]="draft.valore"></div><div class="field"><label>Equipaggiato</label><input name="equipaggiato" type="checkbox" [(ngModel)]="draft.equipaggiato" style="width:auto;align-self:flex-start"></div><div class="field wide"><label>Descrizione</label><textarea name="descrizione" rows="4" [(ngModel)]="draft.descrizione"></textarea></div></div><div class="dialog-actions"><button type="button" class="secondary" (click)="draft=null">Annulla</button><button class="primary">Salva</button></div></form></div>}
+<div class="page-head">
+  <div>
+    <div class="eyebrow">✦ &nbsp; IL TUO REGISTRO PERSONALE</div>
+    <h1>Inventario</h1>
+    <p>Ogni oggetto ha una storia da raccontare.</p>
+  </div>
+  <button class="primary" (click)="edit()">+ Aggiungi oggetto</button>
+</div>
+<div class="grid">
+  <section class="card two-third">
+    <div class="card-title">
+      <h2><span>✧</span>BORSA DELL’AVVENTURIERO</h2>
+      <small>PESO TOTALE {{ weight }} KG</small>
+    </div>
+    @for (x of c.state.items; track $index; let i = $index) {
+      <div class="list-item">
+        <div>
+          <strong>{{ x.nome }}</strong> <span class="tag">{{ x.tipo }}</span>
+          @if (x.equipaggiato) {
+            <span class="tag">EQUIPAGGIATO</span>
+          }
+          <p>
+            Quantità {{ x.quantita }} · {{ x.peso }} kg ciascuno ·
+            {{ x.valore }} MO
+          </p>
+          <p>{{ x.descrizione }}</p>
+        </div>
+        <div class="row">
+          <button class="secondary" (click)="edit(i)">Modifica</button
+          ><button class="secondary" (click)="remove(i)">Elimina</button>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty">
+        <b>La tua borsa è vuota</b>Aggiungi armi, pozioni e tesori raccolti
+        durante le tue avventure.
+      </div>
+    }
+  </section>
+  <section class="card third">
+    <div class="card-title">
+      <h2><span>✧</span>BORSA DELLE MONETE</h2>
+      <small>TESORO</small>
+    </div>
+    @for (k of coins; track k) {
+      <app-counter
+        [label]="k"
+        [(value)]="c.state.coins[k]"
+        (valueChange)="c.save()"
+      />
+    }
+    <div class="resource-row">
+      <b>Valore complessivo</b
+      ><strong style="color: var(--gold)">{{ total }} MO</strong>
+    </div>
+  </section>
+</div>
+@if (draft) {
+  <div class="modal-backdrop">
+    <form class="modal" (ngSubmit)="save()">
+      <div class="dialog-head">
+        <div>
+          <div class="eyebrow">REGISTRO ARCANO</div>
+          <h2>Oggetto</h2>
+        </div>
+        <button class="close" type="button" (click)="draft = null">×</button>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Nome</label
+          ><input name="nome" required [(ngModel)]="draft.nome" />
+        </div>
+        <div class="field">
+          <label>Quantità</label
+          ><input
+            name="quantita"
+            type="number"
+            min="0"
+            [(ngModel)]="draft.quantita"
+          />
+        </div>
+        <div class="field">
+          <label>Tipologia</label
+          ><select name="tipo" [(ngModel)]="draft.tipo">
+            @for (t of types; track t) {
+              <option [value]="t">{{ t }}</option>
+            }
+          </select>
+        </div>
+        <div class="field">
+          <label>Peso unitario (kg)</label
+          ><input
+            name="peso"
+            type="number"
+            min="0"
+            step="0.01"
+            [(ngModel)]="draft.peso"
+          />
+        </div>
+        <div class="field">
+          <label>Valore unitario (MO)</label
+          ><input
+            name="valore"
+            type="number"
+            min="0"
+            step="0.01"
+            [(ngModel)]="draft.valore"
+          />
+        </div>
+        <div class="field">
+          <label>Equipaggiato</label
+          ><input
+            name="equipaggiato"
+            type="checkbox"
+            [(ngModel)]="draft.equipaggiato"
+            style="width: auto; align-self: flex-start"
+          />
+        </div>
+        <div class="field wide">
+          <label>Descrizione</label
+          ><textarea
+            name="descrizione"
+            rows="4"
+            [(ngModel)]="draft.descrizione"
+          ></textarea>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="secondary" (click)="draft = null">
+          Annulla</button
+        ><button class="primary">Salva</button>
+      </div>
+    </form>
+  </div>
+}
