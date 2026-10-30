@@ -13,8 +13,10 @@
           class="nav"
           [class.active]="page === n[0]"
           (click)="select(n[0])"
+          [attr.aria-label]="n[2]"
+          [attr.aria-current]="page === n[0] ? 'page' : null"
         >
-          {{ n[1] }} <span>{{ n[2] }}</span>
+          <span class="nav-symbol" aria-hidden="true">{{ n[1] }}</span> <span class="nav-label">{{ n[2] }}</span><span class="nav-short" aria-hidden="true">{{ shortLabels[n[0]] }}</span>
         </button>
       }
     </nav>

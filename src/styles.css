@@ -3,3 +3,97 @@
 a{color:#d3b980}.catalog-filters{display:grid;grid-template-columns:1.15fr 1.5fr 1fr 1fr;gap:8px;margin:18px 0}.catalog-layout{display:grid;grid-template-columns:minmax(200px,1fr) minmax(250px,1.4fr);gap:16px;margin-top:14px}.catalog-list{border:1px solid #3c453e;border-radius:4px;max-height:560px;overflow:auto}.catalog-result{display:flex;justify-content:space-between;width:100%;text-align:left;background:#1a2221;color:#d9d6c9;border:0;border-bottom:1px solid #343e37;padding:12px 14px;cursor:pointer;font:12px 'DM Sans'}.catalog-result:hover,.catalog-result.selected{background:#343b31;color:#e8cf9f}.catalog-detail{background:#19211f;border:1px solid #3c453e;border-radius:4px;padding:20px;min-height:220px}.catalog-detail h3{font:18px Cinzel;color:#eee0c3;margin:12px 0}.catalog-description{white-space:pre-wrap;line-height:1.65;color:#c9cec2;font-size:13px}.catalog-detail .empty{border:0}@media(max-width:700px){.catalog-filters{grid-template-columns:1fr 1fr}.catalog-layout{grid-template-columns:1fr}.catalog-list{max-height:280px}}@media print{.catalog-filters,.catalog-list,#catalog-detail{display:none}}
 .modal-backdrop{position:fixed;inset:0;background:#000b;z-index:10;display:flex;align-items:center;justify-content:center;padding:16px}.modal{background:#252d2b;color:#eee7d5;border:1px solid #6d624c;border-radius:5px;width:min(620px,94vw);padding:25px;max-height:95vh;overflow:auto}.dialog-head h2{font:20px Cinzel;margin:8px 0 22px}
 .page-hidden{display:none}@media print{.page-hidden{display:block}.catalog-page{display:none}}
+
+/* Navigation and layouts on touch devices. */
+.nav .nav-symbol{font:inherit;margin:0;display:inline-block;min-width:18px;text-align:center}
+.nav .nav-label{font:500 13px 'DM Sans',sans-serif;margin-left:12px}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,.import:focus-within{outline:2px solid var(--gold);outline-offset:2px}
+@media screen and (max-width:1100px){
+  .half,.third,.two-third{grid-column:span 12}
+  .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .slot{flex-wrap:wrap;justify-content:flex-end;min-width:0}
+  .resource-row{min-width:0}
+}
+@media screen and (min-width:701px) and (max-width:1000px){
+  .nav .nav-symbol{display:inline-block;font-size:20px}
+  .nav .nav-label{display:none}
+  .nav{min-height:48px;padding:11px 4px}
+  .identity{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .top{height:auto;min-height:70px;flex-wrap:wrap;padding-block:12px}
+  .card{padding:20px}
+}
+@media screen and (max-width:700px){
+  .app{display:block;padding-bottom:calc(76px + env(safe-area-inset-bottom, 0px))}
+  .sidebar{position:fixed;z-index:20;bottom:0;left:0;right:0;width:auto;padding:6px 4px calc(6px + env(safe-area-inset-bottom, 0px));background:#19211ff7;border:0;border-top:1px solid #495047;box-shadow:0 -5px 20px #0005}
+  .brand,.side-label,.side-bottom{display:none}
+  .sidebar nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px}
+  .nav{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;min-height:57px;padding:5px 1px;border:0;border-radius:5px;text-align:center}
+  .nav.active{border:0;background:#363b31}
+  .nav .nav-symbol{display:block;min-width:0;font-size:19px;line-height:1}
+  .nav .nav-label{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:500 9px 'DM Sans',sans-serif;margin:0}
+  main{width:100%}
+  .top{height:auto;min-height:0;display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:16px 16px 12px}
+  .crumb{line-height:1.4}
+  .top-actions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+  .top-actions .icon-btn{display:flex;align-items:center;justify-content:center;min-height:40px;min-width:0;padding:7px 3px;text-align:center;font-size:10px;white-space:nowrap}
+  .saved{display:none}
+  #content{padding:24px 16px 32px}
+  .page-head{gap:14px;align-items:flex-start;flex-wrap:wrap;margin-bottom:20px}
+  .page-head h1{font-size:clamp(22px,6vw,28px);line-height:1.25}
+  .page-head>.primary{min-height:44px}
+  .ornament{display:none}
+  .grid{gap:12px}
+  .card{padding:16px}
+  .card-title{gap:10px;align-items:flex-start}
+  .card-title small{text-align:right;line-height:1.4}
+  .identity,.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .field input,.field textarea,.field select,.search,select{font-size:16px;min-height:44px}
+  .controls button,.step{width:42px;height:42px}
+  .controls input{width:54px;height:42px;font-size:16px}
+  .primary,.secondary{min-height:42px;font-size:12px}
+  .checks input{width:22px;height:22px}
+  .health-main{gap:12px}
+  .health-number{font-size:34px}
+  .hp-actions{flex-wrap:wrap}
+  .hp-actions input{width:100%;min-height:42px;font-size:16px}
+  .hp-actions button{min-width:calc(50% - 4px)}
+  .ability-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .ability input{font-size:16px;min-height:40px}
+  .skill-grid{grid-template-columns:1fr}
+  .skill{grid-template-columns:minmax(0,1fr) 34px 38px 75px;gap:4px;min-height:50px}
+  .skill select{font-size:12px;min-height:40px}
+  .list-item{align-items:flex-start;flex-direction:column}
+  .list-item>div:first-child{min-width:0;overflow-wrap:anywhere}
+  .list-item .row{gap:8px}
+  .toolbar{flex-wrap:wrap}
+  .toolbar .search{flex:1 1 100%}
+  .toolbar select{width:100%}
+  .slot{gap:5px;max-width:75%}
+  .slot .orb{width:9px;height:9px}
+  .catalog-filters{grid-template-columns:1fr}
+  .catalog-layout{grid-template-columns:minmax(0,1fr)}
+  .catalog-result{min-height:44px}
+  .catalog-detail{min-width:0;overflow-wrap:anywhere}
+  .form-grid{grid-template-columns:1fr}
+  .form-grid .wide{grid-column:auto}
+  .modal-backdrop{align-items:flex-end;padding:0}
+  .modal{width:100%;max-height:90dvh;border-radius:10px 10px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom, 0px));overflow-y:auto}
+  .dialog-actions button{min-width:100px}
+  footer{margin:0 16px}
+  footer span{display:none}
+}
+@media screen and (max-width:360px){
+  #content{padding-inline:10px}
+  .top{padding-inline:10px}
+  .card{padding:12px}
+  .nav .nav-label{font-size:8px}
+  .identity{grid-template-columns:1fr}
+  .health-number{font-size:29px}
+  .slot{max-width:72%}
+}
+.nav .nav-short{display:none}
+@media screen and (max-width:700px){
+  .nav .nav-label{display:none}
+  .nav .nav-short{display:block;font:500 10px 'DM Sans',sans-serif;margin:0;white-space:nowrap}
+  .modal-backdrop{z-index:40}
+}
