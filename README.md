@@ -17,7 +17,7 @@ Aprire l'indirizzo indicato dal server Angular. Per generare il sito statico:
 npm run build
 ```
 
-I file compilati si trovano in `dist/browser/`.
+I file compilati si trovano in `dist/client/`.
 
 ## Struttura
 
