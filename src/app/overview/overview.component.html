@@ -6,7 +6,7 @@
   </div>
   <div class="ornament">✧ &nbsp; ─── &nbsp; ✧</div>
 </div>
-<div class="mobile-character-summary"><div><span class="tiny">IL PERSONAGGIO</span><strong>{{c.state.identity['nome'] || 'Il tuo personaggio'}}</strong><small>{{c.state.identity['classe'] || 'Scegli una classe'}} @if(c.state.identity['livello']){ · Livello {{c.state.identity['livello']}} }</small></div><button type="button" (click)="mobileSection='identita'">Modifica</button></div>
+<div class="mobile-character-summary"><div><span class="tiny">SCHEDA PERSONAGGIO</span><strong>{{c.state.identity['nome'] || 'Il tuo personaggio'}}</strong><small>{{c.state.identity['classe'] || 'Scegli una classe'}} @if(c.state.identity['livello']){ · Livello {{c.state.identity['livello']}} }</small></div><button type="button" (click)="mobileSection='identita'">Modifica</button></div>
 <div class="mobile-segments" aria-label="Sezioni della panoramica">
   <button type="button" [class.selected]="mobileSection==='stato'" [attr.aria-pressed]="mobileSection==='stato'" (click)="mobileSection='stato'">Stato</button>
   <button type="button" [class.selected]="mobileSection==='identita'" [attr.aria-pressed]="mobileSection==='identita'" (click)="mobileSection='identita'">Identità</button>
@@ -26,6 +26,12 @@
       <h2><span>✧</span>DIFESE E MOVIMENTO</h2>
       <small>PRONTO ALL’AZIONE</small>
     </div>
+    <div class="stats-summary" aria-label="Statistiche di combattimento">
+      @for (f of stats; track f[1]) {
+        <div><span>{{ f[0] }}</span><strong>{{ c.state.stats[f[1]] === '' ? '—' : c.state.stats[f[1]] }}</strong></div>
+      }
+    </div>
+    <details class="stat-settings"><summary>Modifica statistiche</summary>
     <div class="stats">
       @for (f of stats; track f[1]) {
         <div class="stat">
@@ -40,6 +46,7 @@
         </div>
       }
     </div>
+    </details>
   </section>
   <section class="card half overview-vitals" [class.mobile-hidden]="mobileSection!=='stato'">
     <div class="card-title">

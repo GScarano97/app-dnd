@@ -37,8 +37,8 @@
           }
           <span class="tiny">{{ s.current }} / {{ s.max }}</span>
           <div class="controls">
-            <button (click)="slot(i, -1)">−</button
-            ><button (click)="slot(i, 1)">+</button>
+            <button type="button" [attr.aria-label]="'Consuma slot livello ' + (i + 1)" (click)="slot(i, -1)">−</button
+            ><button type="button" [attr.aria-label]="'Recupera slot livello ' + (i + 1)" (click)="slot(i, 1)">+</button>
           </div>
           <label class="tiny"
             >MAX
@@ -115,10 +115,11 @@
     </div>
     <div class="toolbar">
       <input
+        aria-label="Cerca incantesimi"
         class="search"
         placeholder="Cerca nel libro e nel catalogo…"
         [(ngModel)]="search"
-      /><select [(ngModel)]="filter">
+      /><select aria-label="Filtra per livello" [(ngModel)]="filter">
         <option value="">Tutti i livelli</option>
         <option value="0">Trucchetto</option>
         @for (l of levels; track l) {

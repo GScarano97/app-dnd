@@ -40,6 +40,7 @@
       </div>
       <div class="field">
         <textarea
+          [attr.aria-label]="f[1]"
           rows="5"
           [(ngModel)]="c.state.notes[f[0]]"
           (ngModelChange)="c.save()"

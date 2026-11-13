@@ -6,9 +6,9 @@
   </div>
 </div>
 <nav class="mobile-segments" aria-label="Sezioni caratteristiche">
-  <button type="button" [attr.aria-pressed]="mobileSection === 'abilita'" (click)="mobileSection = 'abilita'">Abilità</button>
-  <button type="button" [attr.aria-pressed]="mobileSection === 'attributi'" (click)="mobileSection = 'attributi'">Attributi</button>
-  <button type="button" [attr.aria-pressed]="mobileSection === 'salvezza'" (click)="mobileSection = 'salvezza'">Salvezza</button>
+  <button type="button" [class.selected]="mobileSection === 'abilita'" [attr.aria-pressed]="mobileSection === 'abilita'" (click)="mobileSection = 'abilita'">Abilità</button>
+  <button type="button" [class.selected]="mobileSection === 'attributi'" [attr.aria-pressed]="mobileSection === 'attributi'" (click)="mobileSection = 'attributi'">Attributi</button>
+  <button type="button" [class.selected]="mobileSection === 'salvezza'" [attr.aria-pressed]="mobileSection === 'salvezza'" (click)="mobileSection = 'salvezza'">Salvezza</button>
 </nav>
 <div class="grid">
   <section class="card" [class.mobile-hidden]="mobileSection !== 'attributi'">

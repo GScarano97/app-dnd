@@ -14,7 +14,7 @@
       <h2><span>✧</span>ESPLORA IL CATALOGO</h2>
       <small>D&D 5E · 2014</small>
     </div>
-    <p class="sub">
+    <details class="catalog-source"><summary>Fonte e licenza SRD</summary><p class="sub">
       Contenuti SRD 5.1 forniti da D&D 5e SRD API. Nomi e descrizioni degli incantesimi sono in italiano; gli altri contenuti sono in inglese. Alcuni contenuti dei manuali non sono inclusi.
       <a href="https://www.dnd5eapi.co/" target="_blank" rel="noopener"
         >Fonte ↗</a
@@ -26,7 +26,7 @@
         rel="noopener"
         >CC BY 4.0</a
       >.
-    </p>
+    </p></details>
     <div class="catalog-filters">
       <select
         aria-label="Categoria"
@@ -38,6 +38,7 @@
         }</select
       ><input
         class="search"
+        aria-label="Cerca nel catalogo"
         placeholder="Cerca per nome…"
         [(ngModel)]="query"
       />

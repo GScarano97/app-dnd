@@ -1,4 +1,4 @@
-<div class="app">
+<div class="app" (keydown.escape)="moreOpen = false">
   <aside class="sidebar">
     <div class="brand">
       <span class="brand-icon">✧</span>
@@ -7,10 +7,11 @@
       </div>
     </div>
     <div class="side-label">LA TUA SCHEDA</div>
-    <nav>
+    <nav aria-label="Navigazione principale">
       @for (n of nav; track n[0]) {
         <button
           class="nav"
+          [class.mobile-secondary]="n[0] === 'catalog' || n[0] === 'notes'"
           [class.active]="page === n[0]"
           (click)="select(n[0])"
           [attr.aria-label]="n[2]"
@@ -19,7 +20,9 @@
           <span class="nav-symbol" aria-hidden="true">{{ n[1] }}</span> <span class="nav-label">{{ n[2] }}</span><span class="nav-short" aria-hidden="true">{{ shortLabels[n[0]] }}</span>
         </button>
       }
+      <button type="button" class="nav mobile-more" [class.active]="page === 'catalog' || page === 'notes'" [attr.aria-expanded]="moreOpen" aria-controls="more-menu" (click)="moreOpen = !moreOpen"><span class="nav-symbol" aria-hidden="true">☰</span><span class="nav-short">Altro</span></button>
     </nav>
+    @if (moreOpen) { <div id="more-menu" class="more-menu"><button type="button" (click)="select('notes')">Tratti e note <span>›</span></button><button type="button" (click)="select('catalog')">Catalogo SRD <span>›</span></button></div> }
     <div class="side-bottom">
       <div class="sigil">✧</div>
       <p>Ogni leggenda<br />inizia da qui.</p>
