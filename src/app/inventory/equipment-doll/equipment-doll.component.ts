@@ -1,9 +1,10 @@
-import {Component,inject} from '@angular/core';
+import {Component,Input,inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CharacterService,Item} from '../../core/character.service';
 interface EquipmentSlot {id:string;label:string;icon:string}
 @Component({selector:'app-equipment-doll',standalone:true,imports:[FormsModule],templateUrl:'./equipment-doll.component.html',styleUrl:'./equipment-doll.component.css'})
 export class EquipmentDollComponent {
+ @Input() selectId='equip-select';
  c=inject(CharacterService);
  slots:EquipmentSlot[]=[{id:'testa',label:'Testa',icon:'♜'},{id:'collo',label:'Collo',icon:'◇'},{id:'corpo',label:'Corpo',icon:'♜'},{id:'mantello',label:'Mantello',icon:'♧'},{id:'mano-principale',label:'Mano principale',icon:'⚔'},{id:'mano-secondaria',label:'Mano secondaria',icon:'◈'},{id:'mani',label:'Mani',icon:'✧'},{id:'anello',label:'Anello',icon:'◌'},{id:'cintura',label:'Cintura',icon:'⌁'},{id:'piedi',label:'Piedi',icon:'♟'}];
  dragging:number|null=null; selected=''; notice='';
