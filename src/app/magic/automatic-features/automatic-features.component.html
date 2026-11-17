@@ -1,0 +1,26 @@
+<details class="features-menu"><summary class="features-menu-title"><span><span aria-hidden="true">✧</span> Privilegi e tratti</span><small>{{features.length}} capacità · SRD 2014</small></summary><div class="features-menu-content">
+<p class="sub">Capacità derivate dalle scelte nella scheda. Apri una voce per consultarne i dettagli; le note manuali rimangono separate.</p>
+<p class="sub">Le risorse e i loro contatori sono nella sezione Risorse. Nessun bonus viene applicato automaticamente.</p>
+@if (!classe && !razza) {<div class="empty"><b>Completa l’identità</b>Seleziona classe, livello e razza nella panoramica per consultare le capacità disponibili.</div>}
+@if (loading) {<p class="sub" role="status">Caricamento delle capacità SRD…</p>}
+@for (message of messages; track message) {<p class="feature-notice" role="status">{{message}}</p>}
+@if (hasError && !loading) {<button type="button" class="secondary" (click)="load()">Riprova caricamento</button>}
+@if (features.length) {
+ <label class="feature-search">Cerca per nome o origine<input class="search" [(ngModel)]="search" placeholder="Cerca una capacità…" /></label>
+ @for (f of filtered; track f.ref.url) {
+  <details class="feature-row" (toggle)="detail(f,$event)">
+   <summary><span><strong>{{translation(f)?.name || f.ref.name}}</strong><small>{{f.origin}} @if(f.level){ · livello {{f.level}}}</small></span><span aria-hidden="true">＋</span></summary>
+   @if(translation(f); as italian){<p class="feature-description">{{italian.description}}</p><p class="sub">Testo SRD 5.1 in italiano.</p>}
+   @if(f.detailStatus==='loading' && !translation(f)){<p class="sub" role="status">Caricamento descrizione…</p>}
+   @if(f.detailStatus==='error' && !translation(f)){<p class="sub">Descrizione non disponibile. Chiudi e riapri per riprovare.</p>}
+   @if(f.detailStatus==='ready'){
+    @if(f.choice){<p class="feature-notice">Questa capacità include una scelta o un prerequisito: verifica i dettagli e annota la tua selezione nelle note.</p>}
+    @if(!translation(f)){<p class="feature-description">{{f.description || 'Descrizione non disponibile nella fonte.'}}</p>}
+    <p class="sub">D&D 5e SRD 2014 · @if(!translation(f)){Traduzione non disponibile · testo in inglese ·} <a [href]="'https://www.dnd5eapi.co'+f.ref.url" target="_blank" rel="noopener">Fonte API ↗</a></p>
+   }
+  </details>
+ } @empty {<div class="empty">Nessuna capacità corrisponde alla ricerca.</div>}
+} @else if (!loading && (classe || razza) && !messages.length) {<div class="empty">Nessuna capacità disponibile per le scelte attuali.</div>}
+<p class="sub feature-attribution">Questo lavoro include materiale del System Reference Document 5.1 di Wizards of the Coast LLC, disponibile sul <a href="https://dnd.wizards.com/resources/systems-reference-document" target="_blank" rel="noopener">sito ufficiale</a> e concesso sotto <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Dati forniti da <a href="https://www.dnd5eapi.co/" target="_blank" rel="noopener">D&D 5e SRD API</a>.</p>
+
+</div></details>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 export const ABILITIES = ['Forza','Destrezza','Costituzione','Intelligenza','Saggezza','Carisma'];
 export const SKILLS: [string,number][] = [['Acrobazia',1],['Addestrare Animali',4],['Arcano',3],['Atletica',0],['Furtività',1],['Indagare',3],['Inganno',5],['Intimidire',5],['Intuizione',4],['Intrattenere',5],['Medicina',4],['Natura',3],['Percezione',4],['Persuasione',5],['Rapidità di mano',1],['Religione',3],['Sopravvivenza',4],['Storia',3]];
-export interface Spell {nome:string;livello:string;scuola:string;lancio:string;gittata:string;durata:string;componenti:string;descrizione:string;effetti:string;srdIndex?:string}
+export interface Spell {nome:string;livello:string;scuola:string;lancio:string;gittata:string;durata:string;componenti:string;descrizione:string;effetti:string;srdIndex?:string;srdEdition?:'2014'|'2024'}
 export interface Item {nome:string;quantita:number;tipo:string;peso:number;valore:number;descrizione:string;equipaggiato:boolean;slot?:string;srdIndex?:string}
 export interface CatalogEntry {type:string;index:string;name:string;kind:string;description:string}
 export interface ClassResource {current:number;max:number;label?:string;description?:string;rest?:string}

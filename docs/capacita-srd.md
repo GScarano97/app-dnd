@@ -1,0 +1,9 @@
+# Capacità automatiche — fonti e limiti
+
+La scheda consulta gli endpoint 2014 della [D&D 5e SRD API](https://docs.dnd5eapi.co/), per i livelli di classe e sottoclasse e per i tratti di razza e sottorazza. Il [SRD 5.1](https://dnd.wizards.com/resources/systems-reference-document) è disponibile sotto CC BY 4.0; l'attribuzione è nella vista. Il codice dell'API è MIT; non va confuso con la licenza dei contenuti. Le descrizioni restituite per queste capacità sono in inglese.
+
+L'API documenta dodici classi (non Artefice), dodici sottoclassi e quattro sottorazze. Le liste di identità dell'app comprendono molte altre opzioni, inclusi contenuti non SRD e personalizzati: non esiste una corrispondenza certa per queste, che vengono segnalate come non disponibili. La copertura API non garantisce che ogni dettaglio delle regole o ogni opzione sia strutturata. Le scelte vengono evidenziate quando presenti nei campi riconosciuti; leggere sempre il testo e annotare manualmente l'esito. Le varianti, multiclasse e capacità non presenti nella fonte non vengono ricostruite.
+
+Le capacità sono derivate in lettura: non si modificano scheda, bonus, note o contatori. Le risorse già presenti rimangono nella sezione Risorse, senza creare duplicati. L'API viene consultata per elenchi e livelli; i dettagli si caricano all'apertura e le risposte ottenute vengono conservate nella cache locale separata dalla scheda, senza scadenza automatica. Offline sono disponibili soltanto i dati già caricati, inclusi i dettagli aperti almeno una volta. La cache può diventare obsoleta e può essere rimossa tramite i dati del sito nel browser. Gli errori di rete non eliminano la scheda.
+
+La struttura JSON della scheda non cambia, quindi non è prevista migrazione. La selezione di un'altra classe o razza mantiene il comportamento preesistente del selettore, che azzera rispettivamente sottoclasse o sottorazza; note e risorse per classe rimangono salvate.

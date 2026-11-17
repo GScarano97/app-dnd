@@ -3,3 +3,4 @@
 dialog.spell-preview{width:min(620px, calc(100% - 32px));max-height:min(85vh, 85dvh);overflow-y:auto;margin:auto;padding:22px;color:#eee7d5;box-shadow:0 18px 55px #0008}
 dialog.spell-preview::backdrop{background:#000b}
 @media screen and (max-width:700px){dialog.spell-preview{width:calc(100% - 24px);max-height:85dvh;padding:18px}dialog.spell-preview .primary{width:100%;min-height:44px}}
+.edition-choice{display:flex;align-items:center;gap:9px;min-height:44px;color:var(--cream);font-size:13px}.edition-choice input{width:20px;height:20px;accent-color:var(--gold)}

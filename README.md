@@ -50,3 +50,9 @@ Il catalogo online e i dettagli richiesti all'API SRD richiedono una connessione
 ## Risorse di classe
 
 La sezione «Magia e capacità» mostra i contatori legati alla classe selezionata e, dove previsto, al livello e alla sottoclasse. I massimi e i ripristini sono gestiti manualmente: le risorse proposte non coprono ogni sottoclasse, variante o privilegio. Puoi aggiungere contatori personali, conservati separatamente per classe ed esportati nel JSON. Le regole predefinite fanno riferimento alla 5e 2014; il livello mostrato nella scheda non distingue i livelli di un personaggio multiclasse. Gli incantesimi facoltativi restano accessibili anche per personaggi senza incantesimi di classe.
+
+## Incantesimi SRD 2024
+
+Nel grimorio, durante una ricerca, è possibile attivare «Includi SRD 2024». L’elenco proviene dalla D&D 5e SRD API e le descrizioni sono in inglese; Globo Cromatico è ricercabile anche con il nome italiano. La versione 2024 può differire dalle regole 2014: viene etichettata e salvata separatamente. Il materiale SRD 5.2 di Wizards of the Coast LLC è disponibile presso https://dnd.wizards.com/resources/systems-reference-document sotto CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Sono inclusi solo i contenuti disponibili nella fonte SRD, non tutti i manuali.
+
+I testi italiani di privilegi e tratti associati agli indici SRD sono tratti dallo [SRD 5.1 italiano](https://media.wizards.com/2023/downloads/dnd/SRD_CC_v5.1_IT.pdf), tramite la raccolta [quintaedizione-data-ita](https://github.com/prodzombie/quintaedizione-data-ita), e sono concessi da Wizards of the Coast LLC sotto CC BY 4.0. Le voci senza un abbinamento verificato mantengono il testo inglese dell’API.

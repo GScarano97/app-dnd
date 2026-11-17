@@ -1,0 +1,12 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const ts = require('typescript');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const source = fs.readFileSync('src/app/magic/automatic-features/feature-selection.ts','utf8');
+const code = ts.transpile(source,{module:ts.ModuleKind.CommonJS});
+const exportsObject={}; vm.runInNewContext(code,{exports:exportsObject});
+const {eligibleLevels}=exportsObject;
+const rows=[{level:1,features:[{index:'second-wind',url:'/api/2014/features/second-wind'}]},{level:3,features:[{index:'improved-critical',url:'/api/2014/features/improved-critical'}]},{level:7,features:[{index:'remarkable-athlete',url:'/api/2014/features/remarkable-athlete'}]}];
+test('features are limited to attained levels, including subclass levels',()=>{assert.deepEqual(Array.from(eligibleLevels(rows,3),x=>x.ref.index),['second-wind','improved-critical']);assert.deepEqual(Array.from(eligibleLevels(rows,1),x=>x.ref.index),['second-wind']);assert.equal(eligibleLevels(rows,7).length,3)});
+test('unknown levels and invalid references do not create features',()=>{assert.equal(eligibleLevels(rows,0).length,0);assert.equal(eligibleLevels(rows,21).length,0);assert.equal(eligibleLevels([{level:1,features:[{index:'bad',url:'https://other.example/'}]}],1).length,0)});

@@ -7,11 +7,13 @@
   @if (spellsVisible) { <button class="primary spell-add" [class.mobile-hidden]="visibleMobileSection!=='grimorio'" (click)="edit()">+ Aggiungi incantesimo</button> }
 </div>
 <div class="mobile-segments" aria-label="Sezioni magia e capacità">
+  <button type="button" [class.selected]="visibleMobileSection==='privilegi'" [attr.aria-pressed]="visibleMobileSection==='privilegi'" (click)="mobileSection='privilegi'">Privilegi</button>
   <button type="button" [class.selected]="visibleMobileSection==='risorse'" [attr.aria-pressed]="visibleMobileSection==='risorse'" (click)="mobileSection='risorse'">Risorse</button>
   @if(spellsVisible){<button type="button" [class.selected]="visibleMobileSection==='slot'" [attr.aria-pressed]="visibleMobileSection==='slot'" (click)="mobileSection='slot'">Slot</button><button type="button" [class.selected]="visibleMobileSection==='grimorio'" [attr.aria-pressed]="visibleMobileSection==='grimorio'" (click)="mobileSection='grimorio'">Grimorio</button>}
   @if(isSorcerer && (!characterLevel || characterLevel>=3)){<button type="button" [class.selected]="visibleMobileSection==='metamagie'" [attr.aria-pressed]="visibleMobileSection==='metamagie'" (click)="mobileSection='metamagie'">Metamagie</button>}
 </div>
 <div class="grid">
+  <section class="card" [class.mobile-hidden]="visibleMobileSection!=='privilegi'"><app-automatic-features [classe]="c.state.identity['classe']" [sottoclasse]="c.state.identity['sottoclasse']" [livello]="c.state.identity['livello']" [razza]="c.state.identity['razza']" [sottorazza]="c.state.identity['sottorazza']" /></section>
   @if (c.state.identity['classe']) {
     <section class="card" [class.mobile-hidden]="visibleMobileSection!=='risorse'"><app-class-resources /></section>
   } @else {
@@ -131,7 +133,7 @@
     @for (x of filtered; track x.i) {
       <div class="list-item">
         <div>
-          <strong>{{ displayName(x.s) }}</strong>
+          <strong>{{ displayName(x.s) }}</strong> @if(x.s.srdEdition === '2024'){<span class="tag">SRD 2024</span>}
           <span class="tag">{{
             x.s.livello === "0" ? "TRUCCHETTO" : "LIVELLO " + x.s.livello
           }}</span>
@@ -172,19 +174,23 @@
     <div class="card-title">
       <h2><span>✧</span>METAMAGIE</h2>
     </div>
-    @for (x of c.state.catalog; track x.index) {
-      @if (x.type === "metamagic") {
-        <div class="list-item">
-          <div>
-            <strong>{{ x.name }}</strong>
-            <p>{{ x.description }}</p>
-          </div>
-        </div>
-      }
+    <p class="sub">Scegli le metamagie conosciute: due al livello 3, una aggiuntiva ai livelli 10 e 17. Normalmente puoi applicarne una per incantesimo, salvo eccezioni indicate. Le sintesi sono traduzioni non ufficiali dello SRD 5.1.</p>
+    <p class="metamagic-count" aria-live="polite">Conosciute: {{knownMetamagicCount}} @if(metamagicLimit){ / {{metamagicLimit}} secondo il livello da stregone } @else { · imposta il livello da stregone }</p>
+    @if(metamagicLimit && knownMetamagicCount > metamagicLimit){<p class="feature-notice">Hai selezionato più opzioni del numero base previsto. Le selezioni restano salvate: verifica eventuali regole aggiuntive con il DM.</p>}
+    @for (option of metamagic; track option.index) {
+      <div class="metamagic-item">
+        <div class="metamagic-heading"><div><strong>{{option.name}}</strong><span class="tag">{{option.cost}}</span></div><button type="button" class="secondary" [attr.aria-pressed]="isKnown(option.index)" [attr.aria-label]="(isKnown(option.index) ? 'Rimuovi dalle conosciute: ' : 'Segna come conosciuta: ') + option.name" (click)="toggleMetamagic(option)">{{isKnown(option.index) ? '✓ Conosciuta' : 'Segna'}}</button></div>
+        <p>{{option.description}}</p>
+        <a [href]="'https://www.dnd5eapi.co/api/2014/features/' + option.index" target="_blank" rel="noopener">Testo SRD in inglese ↗</a>
+      </div>
     }
+    @for (x of c.state.catalog; track $index) {
+      @if (x.type === 'metamagic' && !isStandardMetamagic(x.index)) {<div class="list-item"><div><strong>{{x.name}}</strong><p>{{x.description}}</p><span class="tag">SALVATA IN PRECEDENZA</span></div></div>}
+    }
+    <p class="sub">Materiale SRD 5.1 di Wizards of the Coast LLC, <a href="https://dnd.wizards.com/resources/systems-reference-document" target="_blank" rel="noopener">fonte ufficiale</a>, licenza <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.</p>
     <div class="field">
-      <label>Metamagie conosciute ed effetti</label
-      ><textarea
+      <label for="metamagic-notes">Note sulle metamagie</label
+      ><textarea id="metamagic-notes"
         rows="5"
         [(ngModel)]="c.state.notes['metamagie']"
         (ngModelChange)="c.save()"
